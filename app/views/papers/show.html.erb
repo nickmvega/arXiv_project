@@ -1,0 +1,161 @@
+<div>
+  <div>
+    <h1>
+      Paper #<%= @the_paper.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/papers">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_paper/<%= @the_paper.id %>">
+          Delete paper
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Title
+      </dt>
+      <dd>
+        <%= @the_paper.title %>
+      </dd>
+
+      <dt>
+        Author
+      </dt>
+      <dd>
+        <%= @the_paper.author %>
+      </dd>
+
+      <dt>
+        Arxiv identifier
+      </dt>
+      <dd>
+        <%= @the_paper.arxiv_identifier %>
+      </dd>
+
+      <dt>
+        Url
+      </dt>
+      <dd>
+        <%= @the_paper.url %>
+      </dd>
+
+      <dt>
+        Text
+      </dt>
+      <dd>
+        <%= @the_paper.text %>
+      </dd>
+
+      <dt>
+        User
+      </dt>
+      <dd>
+        <%= @the_paper.user_id %>
+      </dd>
+
+      <dt>
+        Papertopics count
+      </dt>
+      <dd>
+        <%= @the_paper.papertopics_count %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_paper.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_paper.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit paper
+    </h2>
+
+    <form action="/modify_paper/<%= @the_paper.id %>"  method="post" >
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title" value="<%= @the_paper.title %>">
+      </div>
+
+      <div>
+        <label for="author_box">
+          Author
+        </label>
+
+        <input type="text" id="author_box" name="query_author" value="<%= @the_paper.author %>">
+      </div>
+
+      <div>
+        <label for="arxiv_identifier_box">
+          Arxiv identifier
+        </label>
+
+        <input type="text" id="arxiv_identifier_box" name="query_arxiv_identifier" value="<%= @the_paper.arxiv_identifier %>">
+      </div>
+
+      <div>
+        <label for="url_box">
+          Url
+        </label>
+
+        <input type="text" id="url_box" name="query_url" value="<%= @the_paper.url %>">
+      </div>
+
+      <div>
+        <label for="text_box">
+          Text
+        </label>
+
+        <input type="text" id="text_box" name="query_text" value="<%= @the_paper.text %>">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_paper.user_id %>">
+      </div>
+
+      <div>
+        <label for="papertopics_count_box">
+          Papertopics count
+        </label>
+
+        <input type="text" id="papertopics_count_box" name="query_papertopics_count" value="<%= @the_paper.papertopics_count %>">
+      </div>
+
+      <button>
+        Update paper
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

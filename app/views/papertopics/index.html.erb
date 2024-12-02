@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all papertopics
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new papertopic
+    </h2>
+
+    <form action="/insert_papertopic" method="post">
+      <div>
+        <label for="topic_id_box">
+          Topic
+        </label>
+
+        <input type="text" id="topic_id_box" name="query_topic_id">
+      </div>
+
+      <div>
+        <label for="paper_id_box">
+          Paper
+        </label>
+
+        <input type="text" id="paper_id_box" name="query_paper_id">
+      </div>
+
+      <button>
+        Create papertopic
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Topic
+        </th>
+
+        <th>
+          Paper
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_papertopics.each do |a_papertopic| %>
+      <tr>
+        <td>
+          <%= a_papertopic.id %>
+        </td>
+
+        <td>
+          <%= a_papertopic.topic_id %>
+        </td>
+
+        <td>
+          <%= a_papertopic.paper_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_papertopic.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_papertopic.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/papertopics/<%= a_papertopic.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

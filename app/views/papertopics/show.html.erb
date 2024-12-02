@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Papertopic #<%= @the_papertopic.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/papertopics">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_papertopic/<%= @the_papertopic.id %>">
+          Delete papertopic
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Topic
+      </dt>
+      <dd>
+        <%= @the_papertopic.topic_id %>
+      </dd>
+
+      <dt>
+        Paper
+      </dt>
+      <dd>
+        <%= @the_papertopic.paper_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_papertopic.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_papertopic.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit papertopic
+    </h2>
+
+    <form action="/modify_papertopic/<%= @the_papertopic.id %>"  method="post" >
+      <div>
+        <label for="topic_id_box">
+          Topic
+        </label>
+
+        <input type="text" id="topic_id_box" name="query_topic_id" value="<%= @the_papertopic.topic_id %>">
+      </div>
+
+      <div>
+        <label for="paper_id_box">
+          Paper
+        </label>
+
+        <input type="text" id="paper_id_box" name="query_paper_id" value="<%= @the_papertopic.paper_id %>">
+      </div>
+
+      <button>
+        Update papertopic
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

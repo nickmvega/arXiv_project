@@ -1,0 +1,182 @@
+<div>
+  <div>
+    <h1>
+      List of all papers
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new paper
+    </h2>
+
+    <form action="/insert_paper" method="post">
+      <div>
+        <label for="title_box">
+          Title
+        </label>
+
+        <input type="text" id="title_box" name="query_title">
+      </div>
+
+      <div>
+        <label for="author_box">
+          Author
+        </label>
+
+        <input type="text" id="author_box" name="query_author">
+      </div>
+
+      <div>
+        <label for="arxiv_identifier_box">
+          Arxiv identifier
+        </label>
+
+        <input type="text" id="arxiv_identifier_box" name="query_arxiv_identifier">
+      </div>
+
+      <div>
+        <label for="url_box">
+          Url
+        </label>
+
+        <input type="text" id="url_box" name="query_url">
+      </div>
+
+      <div>
+        <label for="text_box">
+          Text
+        </label>
+
+        <input type="text" id="text_box" name="query_text">
+      </div>
+
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="papertopics_count_box">
+          Papertopics count
+        </label>
+
+        <input type="text" id="papertopics_count_box" name="query_papertopics_count">
+      </div>
+
+      <button>
+        Create paper
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Title
+        </th>
+
+        <th>
+          Author
+        </th>
+
+        <th>
+          Arxiv identifier
+        </th>
+
+        <th>
+          Url
+        </th>
+
+        <th>
+          Text
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Papertopics count
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_papers.each do |a_paper| %>
+      <tr>
+        <td>
+          <%= a_paper.id %>
+        </td>
+
+        <td>
+          <%= a_paper.title %>
+        </td>
+
+        <td>
+          <%= a_paper.author %>
+        </td>
+
+        <td>
+          <%= a_paper.arxiv_identifier %>
+        </td>
+
+        <td>
+          <%= a_paper.url %>
+        </td>
+
+        <td>
+          <%= a_paper.text %>
+        </td>
+
+        <td>
+          <%= a_paper.user_id %>
+        </td>
+
+        <td>
+          <%= a_paper.papertopics_count %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_paper.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_paper.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/papers/<%= a_paper.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
