@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all papers
+      Your saved arXiv papers
     </h1>
   </div>
 </div>
@@ -14,7 +14,7 @@
       Add a new paper
     </h2>
 
-    <form action="/insert_paper" method="post">
+    <form action="/insert_paper" method="post" enctype="multipart/form-data">
       <div>
         <label for="title_box">
           Title
@@ -52,23 +52,7 @@
           Text
         </label>
 
-        <input type="text" id="text_box" name="query_text">
-      </div>
-
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id">
-      </div>
-
-      <div>
-        <label for="papertopics_count_box">
-          Papertopics count
-        </label>
-
-        <input type="text" id="papertopics_count_box" name="query_papertopics_count">
+        <input type="file" id="text_box" name="query_text" class="form-control">
       </div>
 
       <button>
