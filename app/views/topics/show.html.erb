@@ -1,6 +1,6 @@
 <div>
   <div>
-    <h1>
+    <h1 class="custom-header">
       <%= @the_topic.topic %>
     </h1>
 
@@ -61,7 +61,7 @@
 
 <div>
   <div>
-    <h2>
+    <h2 class="custom-header">
       Edit topic
     </h2>
 
@@ -74,9 +74,11 @@
         <input type="text" id="topic_box" name="query_topic" value="<%= @the_topic.topic %>">
       </div>
 
-      <button>
-        Update topic
-      </button>
+      <div class="row mb-3">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary">Update Topic</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

@@ -8,20 +8,28 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <link rel="stylesheet" href="/css/my_styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
   </head>
 
   <body>
-    <nav>
-      <a href="/">Saved Papers</a>
-      <%= link_to 'Topics', topics_path %>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a href="/" class="me-1">Saved Papers</a>
+        <a href="/topics">Topics</a>
 
-      <% if current_user != nil %>
-        <a href="/users/sign_out">Sign out</a>
-        <a href="/users/edit">Edit profile</a>
-      <% else %>
-        <a href="/users/sign_up">Sign up</a>
-        <a href="/users/sign_in">Sign in</a>
-      <% end %>
+        <div class="ms-auto">
+          <% if current_user != nil %>
+            <a href="/users/sign_out">Sign out</a>
+            <a href="/users/edit">Edit profile</a>
+          <% else %>
+            <a href="/users/sign_up">Sign up</a>
+            <a href="/users/sign_in">Sign in</a>
+          <% end %>
+        </div>
+      </div>
 
     </nav>
 

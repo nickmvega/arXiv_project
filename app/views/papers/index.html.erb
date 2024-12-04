@@ -1,6 +1,6 @@
 <div>
   <div>
-    <h1>
+    <h1 class="custom-header">
       Your saved arXiv papers
     </h1>
   </div>
@@ -8,95 +8,126 @@
 
 <hr>
 
-<div>
-  <div>
-    <h2>
-      Add a new paper
-    </h2>
+<div class="card shadow mb-4">
+  <h2 class="custom-header">
+    Add a new paper
+  </h2>
 
-    <form action="/insert_paper" method="post" enctype="multipart/form-data">
-      <div>
-        <label for="title_box">
-          Title
-        </label>
+  <form action="/insert_paper" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title_box">
+        Title
+      </label>
 
-        <input type="text" id="title_box" name="query_title">
-      </div>
+      <input type="text" id="title_box" name="query_title">
+    </div>
 
-      <div>
-        <label for="author_box">
-          Author
-        </label>
+    <div class="mb-3">
+      <label for="author_box">
+        Author
+      </label>
 
-        <input type="text" id="author_box" name="query_author">
-      </div>
+      <input type="text" id="author_box" name="query_author">
+    </div>
 
-      <div>
-        <label for="arxiv_identifier_box">
-          Arxiv identifier
-        </label>
+    <div class="mb-3">
+      <label for="arxiv_identifier_box">
+        Arxiv identifier
+      </label>
 
-        <input type="text" id="arxiv_identifier_box" name="query_arxiv_identifier">
-      </div>
+      <input type="text" id="arxiv_identifier_box" name="query_arxiv_identifier">
+    </div>
 
-      <div>
-        <label for="url_box">
-          Url
-        </label>
+    <div class="mb-3">
+      <label for="url_box">
+        Url
+      </label>
 
-        <input type="text" id="url_box" name="query_url">
-      </div>
+      <input type="text" id="url_box" name="query_url">
+    </div>
 
-      <div>
-        <label for="text_box">
-          Text
-        </label>
+    <div class="mb-3">
+      <label for="text_box">
+        Text
+      </label>
 
-        <input type="file" id="text_box" name="query_text" class="form-control">
-      </div>
+      <input type="file" id="text_box" name="query_text" class="form-control w-50">
+    </div>
 
-      <div>
-        <label for="topics_box">Select Topics</label><br>
+    <div class="row mb-3">
+      <label for="topics_box" class="col-sm-2 col-form-label">Select Topics</label>
+      <div class="col-sm-10">
         <% Topic.all.each do |topic| %>
-          <input type="checkbox" name="topic_ids[]" value="<%= topic.id %>">
-          <%= topic.topic %><br>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="topic_ids[]" value="<%= topic.id %>" id="topic_<%= topic.id %>">
+            <label class="form-check-label" for="topic_<%= topic.id %>">
+              <%= topic.topic %>
+            </label>
+          </div>
         <% end %>
       </div>
+    </div>
 
-      <button>
-        Add paper
-      </button>
-    </form>
-
-    <h3>
-      Don't see a relevant topic? Quickly add it here or 
-      <a href="/topics">go to Topics</a>
-    </h3>
-    <form action="/insert_topic" method="post">
-      <div>
-        <label for="topic_box">New Topic</label>
-        <input type="text" id="topic_box" name="query_topic">
-      </div>
-      <button>Create Topic</button>
-    </form>
-  </div>
+    <div class="row mb-3">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Add Paper</button>
+    </div>
 </div>
+</form>
+
+<div class="card shadow mb-4">
+  <h3 class="custom-header">
+    Don't see a relevant topic? Quickly add it here or 
+    <a href="/topics">go to Topics</a>
+  </h3>
+  <form action="/insert_topic" method="post">
+    <div>
+      <label for="topic_box">New Topic</label>
+      <input type="text" id="topic_box" name="query_topic">
+    </div>
+    <div class="row mb-3">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Create Topic</button>
+    </div>
+  </div>
+  </form>
+</div>
+</div>
+
+
 <hr>
 
-<h2>Filter by Topics</h2>
+<div class="card shadow mb-4">
+<h2 class="custom-header">Filter by Topics</h2>
 <form action="/papers" method="get">
-  <% Topic.all.each do |topic| %>
-    <input type="checkbox" name="topic_ids[]" value="<%= topic.id %>" <%= params[:topic_ids]&.include?(topic.id.to_s) ? 'checked' : '' %>>
-    <%= topic.topic %><br>
-  <% end %>
-  <button>Filter</button>
-</form>
-<%= link_to "Show All Papers", papers_path %>
+  <div class="row mb-3">
+    <label for="filter_topics" class="col-sm-2 col-form-label">Filter Topics</label>
+    <div class="col-sm-10">
+      <% Topic.all.each do |topic| %>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="topic_ids[]" value="<%= topic.id %>" id="filter_topic_<%= topic.id %>" <%= params[:topic_ids]&.include?(topic.id.to_s) ? 'checked' : '' %>>
+          <label class="form-check-label" for="filter_topic_<%= topic.id %>">
+            <%= topic.topic %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+  </div>
+  
+  </form>
+
+  <%= link_to "Show All Papers", papers_path, class: "btn btn-link" %>
+</div>
 
 <hr>
 <div>
-  <div>
-    <table border="1">
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
       <tr>
         <th>
           ID
