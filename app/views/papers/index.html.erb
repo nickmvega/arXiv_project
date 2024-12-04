@@ -55,12 +55,43 @@
         <input type="file" id="text_box" name="query_text" class="form-control">
       </div>
 
+      <div>
+        <label for="topics_box">Select Topics</label><br>
+        <% Topic.all.each do |topic| %>
+          <input type="checkbox" name="topic_ids[]" value="<%= topic.id %>">
+          <%= topic.topic %><br>
+        <% end %>
+      </div>
+
       <button>
-        Create paper
+        Add paper
       </button>
+    </form>
+
+    <h3>
+      Don't see a relevant topic? Quickly add it here or 
+      <a href="/topics">go to Topics</a>
+    </h3>
+    <form action="/insert_topic" method="post">
+      <div>
+        <label for="topic_box">New Topic</label>
+        <input type="text" id="topic_box" name="query_topic">
+      </div>
+      <button>Create Topic</button>
     </form>
   </div>
 </div>
+<hr>
+
+<h2>Filter by Topics</h2>
+<form action="/papers" method="get">
+  <% Topic.all.each do |topic| %>
+    <input type="checkbox" name="topic_ids[]" value="<%= topic.id %>" <%= params[:topic_ids]&.include?(topic.id.to_s) ? 'checked' : '' %>>
+    <%= topic.topic %><br>
+  <% end %>
+  <button>Filter</button>
+</form>
+<%= link_to "Show All Papers", papers_path %>
 
 <hr>
 <div>
@@ -89,14 +120,6 @@
 
         <th>
           Text
-        </th>
-
-        <th>
-          User
-        </th>
-
-        <th>
-          Papertopics count
         </th>
 
         <th>
@@ -130,19 +153,19 @@
         </td>
 
         <td>
-          <%= a_paper.url %>
+          <% if a_paper.url.present? %>
+            <a href="<%= a_paper.url %>" target="_blank"><%= a_paper.url %></a>
+          <% else %>
+            No URL provided
+          <% end %>
         </td>
 
         <td>
-          <%= a_paper.text %>
-        </td>
-
-        <td>
-          <%= a_paper.user_id %>
-        </td>
-
-        <td>
-          <%= a_paper.papertopics_count %>
+          <% if a_paper.text.present? %>
+            <a href="<%= a_paper.text.url %>" target="_blank">Download</a>
+          <% else %>
+            No file uploaded
+          <% end %>
         </td>
 
         <td>

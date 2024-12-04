@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all topics
+      Your arXiv Topics
     </h1>
   </div>
 </div>
@@ -23,14 +23,6 @@
         <input type="text" id="topic_box" name="query_topic">
       </div>
 
-      <div>
-        <label for="papertopics_count_box">
-          Papertopics count
-        </label>
-
-        <input type="text" id="papertopics_count_box" name="query_papertopics_count">
-      </div>
-
       <button>
         Create topic
       </button>
@@ -39,6 +31,11 @@
 </div>
 
 <hr>
+
+<p>
+  Click "Show Details" to see which papers are associated with a specific topic.
+</p>
+
 <div>
   <div>
     <table border="1">
@@ -49,10 +46,6 @@
 
         <th>
           Topic
-        </th>
-
-        <th>
-          Papertopics count
         </th>
 
         <th>
@@ -75,10 +68,6 @@
 
         <td>
           <%= a_topic.topic %>
-        </td>
-
-        <td>
-          <%= a_topic.papertopics_count %>
         </td>
 
         <td>

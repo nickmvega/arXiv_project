@@ -12,7 +12,8 @@
 
   <body>
     <nav>
-      <a href="/">arXiv Manager</a>
+      <a href="/">Saved Papers</a>
+      <%= link_to 'Topics', topics_path %>
 
       <% if current_user != nil %>
         <a href="/users/sign_out">Sign out</a>

@@ -45,8 +45,8 @@ Rails.application.routes.draw do
   # READ
   get("/papers", { :controller => "papers", :action => "index" })
   
-  get("/papers/:path_id", { :controller => "papers", :action => "show" })
-  
+  get("/papers/:path_id", { :controller => "papers", :action => "show", as: "paper" })
+
   # UPDATE
   
   post("/modify_paper/:path_id", { :controller => "papers", :action => "update" })

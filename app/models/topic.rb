@@ -10,4 +10,5 @@
 #
 class Topic < ApplicationRecord
   has_many  :papertopics, class_name: "Papertopic", foreign_key: "topic_id", dependent: :destroy
+  has_many :papers, through: :papertopics
 end

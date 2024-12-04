@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Paper #<%= @the_paper.id %> details
+      <%= @the_paper.title %> details
     </h1>
 
     <div>
@@ -44,29 +44,22 @@
         Url
       </dt>
       <dd>
-        <%= @the_paper.url %>
+        <% if @the_paper.url.present? %>
+          <a href="<%= @the_paper.url %>" target="_blank"><%= @the_paper.url %></a>
+        <% else %>
+          No URL provided
+        <% end %>
       </dd>
 
-      <dt>
-        Text
-      </dt>
+      <dt>Text</dt>
       <dd>
-        <%= @the_paper.text %>
+        <% if @the_paper.text.present? %>
+          <a href="<%= @the_paper.text.url %>" target="_blank">Download Text</a>
+        <% else %>
+          No file uploaded
+        <% end %>
       </dd>
 
-      <dt>
-        User
-      </dt>
-      <dd>
-        <%= @the_paper.user_id %>
-      </dd>
-
-      <dt>
-        Papertopics count
-      </dt>
-      <dd>
-        <%= @the_paper.papertopics_count %>
-      </dd>
 
       <dt>
         Created at
@@ -112,6 +105,15 @@
       </div>
 
       <div>
+        <label>Topics</label><br>
+        <% Topic.all.each do |topic| %>
+          <input type="checkbox" name="topic_ids[]" value="<%= topic.id %>" 
+                <%= @the_paper.topics.include?(topic) ? "checked" : "" %>>
+          <%= topic.topic %><br>
+        <% end %>
+      </div>
+
+      <div>
         <label for="arxiv_identifier_box">
           Arxiv identifier
         </label>
@@ -124,6 +126,13 @@
           Url
         </label>
 
+        <% if @the_paper.url.present? %>
+          <p>
+            Current URL: <a href="<%= @the_paper.url %>" target="_blank"><%= @the_paper.url %></a>
+          </p>
+          <p>Update the URL:</p>
+        <% end %>
+
         <input type="text" id="url_box" name="query_url" value="<%= @the_paper.url %>">
       </div>
 
@@ -132,24 +141,19 @@
           Text
         </label>
 
-        <input type="text" id="text_box" name="query_text" value="<%= @the_paper.text %>">
+        <% if @the_paper.text.present? %>
+          <p>
+            Current Paper File: <a href="<%= @the_paper.text.url %>" target="_blank">Download</a>
+          </p>
+          <p>If you want to replace the existing text, upload a new file:</p>
+        <% else %>
+          <p>No paper file uploaded. Please upload one:</p>
+        <% end %>
+
+        <input type="file" id="text_box" name="query_text" class="form-control">
       </div>
-
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_paper.user_id %>">
-      </div>
-
-      <div>
-        <label for="papertopics_count_box">
-          Papertopics count
-        </label>
-
-        <input type="text" id="papertopics_count_box" name="query_papertopics_count" value="<%= @the_paper.papertopics_count %>">
-      </div>
+      
+      <hr>
 
       <button>
         Update paper

@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Topic #<%= @the_topic.id %> details
+      <%= @the_topic.topic %>
     </h1>
 
     <div>
@@ -27,13 +27,6 @@
       </dd>
 
       <dt>
-        Papertopics count
-      </dt>
-      <dd>
-        <%= @the_topic.papertopics_count %>
-      </dd>
-
-      <dt>
         Created at
       </dt>
       <dd>
@@ -47,11 +40,24 @@
         <%= time_ago_in_words(@the_topic.updated_at) %> ago
       </dd>
     </dl>
+
+    <p>Associated Papers:</p>
+
+    <% if @associated_papers.any? %>
+      <ul>
+        <% @associated_papers.each do |paper| %>
+          <li>
+            <%= link_to paper.title, paper_path(paper) %> by <%= paper.author %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No papers are associated with this topic.</p>
+    <% end %>
   </div>
 </div>
 
 <hr>
-
 
 <div>
   <div>
@@ -66,14 +72,6 @@
         </label>
 
         <input type="text" id="topic_box" name="query_topic" value="<%= @the_topic.topic %>">
-      </div>
-
-      <div>
-        <label for="papertopics_count_box">
-          Papertopics count
-        </label>
-
-        <input type="text" id="papertopics_count_box" name="query_papertopics_count" value="<%= @the_topic.papertopics_count %>">
       </div>
 
       <button>

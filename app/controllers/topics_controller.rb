@@ -1,26 +1,23 @@
 class TopicsController < ApplicationController
   def index
-    matching_topics = Topic.all
-
-    @list_of_topics = matching_topics.order({ :created_at => :desc })
-
-    render({ :template => "topics/index" })
+    @list_of_topics = Topic.includes(:papers).order(created_at: :desc)
   end
 
   def show
     the_id = params.fetch("path_id")
-
-    matching_topics = Topic.where({ :id => the_id })
-
-    @the_topic = matching_topics.at(0)
-
-    render({ :template => "topics/show" })
+    @the_topic = Topic.find_by(id: the_id)
+  
+    if @the_topic.nil?
+      redirect_to("/topics", { alert: "Topic not found." })
+      return
+    end
+  
+    @associated_papers = @the_topic.papers
   end
 
   def create
     the_topic = Topic.new
     the_topic.topic = params.fetch("query_topic")
-    the_topic.papertopics_count = params.fetch("query_papertopics_count")
 
     if the_topic.valid?
       the_topic.save
@@ -35,7 +32,6 @@ class TopicsController < ApplicationController
     the_topic = Topic.where({ :id => the_id }).at(0)
 
     the_topic.topic = params.fetch("query_topic")
-    the_topic.papertopics_count = params.fetch("query_papertopics_count")
 
     if the_topic.valid?
       the_topic.save
