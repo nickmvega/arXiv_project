@@ -17,6 +17,7 @@ class Paper < ApplicationRecord
   belongs_to :user, required: true, class_name: "User", foreign_key: "user_id", counter_cache: true
   has_many  :papertopics, class_name: "Papertopic", foreign_key: "paper_id", dependent: :destroy
   has_many :topics, through: :papertopics
+  has_many  :bookmarks, class_name: "Bookmark", foreign_key: "paper_id", dependent: :destroy
 
   mount_uploader :text, TextUploader
 end

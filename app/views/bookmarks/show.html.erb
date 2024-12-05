@@ -1,0 +1,85 @@
+<div>
+  <div class="card shadow mb-4">
+    <h1 class="custom-header">
+      Bookmark: <%= @the_bookmark.paper.title%>
+    </h1>
+
+    <div>
+      <div>
+        <a href="/bookmarks">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_bookmark/<%= @the_bookmark.id %>">
+          Delete bookmark
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Author
+      </dt>
+      <dd>
+        <%= @the_bookmark.paper.author %>
+      </dd>
+
+      <dt>
+        Comment
+      </dt>
+      <dd>
+        <%= @the_bookmark.comment %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_bookmark.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_bookmark.updated_at) %> ago
+      </dd>
+
+      <a href="/papers/<%= @the_bookmark.paper.id %>"><%= @the_bookmark.paper.title %></a> by <%= @the_bookmark.paper.author %>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Edit bookmark
+    </h2>
+
+    <form action="/modify_bookmark/<%= @the_bookmark.id %>"  method="post" >
+      <div>
+        <label for="paper_id_box">
+          Paper
+        </label>
+
+        <input type="text" id="paper_id_box" name="query_paper_id" value="<%= @the_bookmark.paper.title %>">
+      </div>
+
+      <div>
+        <label for="comment_box">
+          Comment
+        </label>
+
+        <input type="text" id="comment_box" name="query_comment" value="<%= @the_bookmark.comment %>">
+      </div>
+
+          <button type="submit" class="btn btn-primary">Update Bookmark</button>
+    </form>
+  </div>
+</div>
+
+<hr>

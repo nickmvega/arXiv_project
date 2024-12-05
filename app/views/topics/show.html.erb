@@ -1,5 +1,5 @@
 <div>
-  <div>
+  <div class="card shadow mb-4">
     <h1 class="custom-header">
       <%= @the_topic.topic %>
     </h1>
@@ -47,7 +47,7 @@
       <ul>
         <% @associated_papers.each do |paper| %>
           <li>
-            <%= link_to paper.title, paper_path(paper) %> by <%= paper.author %>
+            <a href="/papers/<%= paper.id %>"><%= paper.title %></a> by <%= paper.author %>
           </li>
         <% end %>
       </ul>

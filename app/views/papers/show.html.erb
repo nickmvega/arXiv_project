@@ -1,7 +1,7 @@
 <div>
-  <div>
+  <div class="card shadow mb-4">
     <h1 class="custom-header">
-      <%= @the_paper.title %> details
+      <%= @the_paper.title %>
     </h1>
 
     <div>
@@ -47,17 +47,24 @@
         <% if @the_paper.url.present? %>
           <a href="<%= @the_paper.url %>" target="_blank"><%= @the_paper.url %></a>
         <% else %>
-          No URL provided
+          No URL was provided
         <% end %>
       </dd>
 
-      <dt>Text</dt>
+      <dt>Paper</dt>
       <dd>
         <% if @the_paper.text.present? %>
-          <a href="<%= @the_paper.text.url %>" target="_blank">Download Text</a>
+          <a href="<%= @the_paper.text.url %>" target="_blank">Download Paper</a>
         <% else %>
-          No file uploaded
+          No file was uploaded
         <% end %>
+      </dd>
+
+      <dt>
+        Bookmarked
+      </dt>
+      <dd>
+        <%= current_user.bookmarks.exists?(paper: @the_paper) ? "Yes" : "No"%>
       </dd>
 
 
@@ -80,9 +87,8 @@
 
 <hr>
 
-
 <div>
-  <div>
+  <div class="card shadow mb-4">
     <h2 class="custom-header">
       Edit paper
     </h2>
@@ -104,13 +110,20 @@
         <input type="text" id="author_box" name="query_author" value="<%= @the_paper.author %>">
       </div>
 
-      <div>
-        <label>Topics</label><br>
-        <% Topic.all.each do |topic| %>
-          <input type="checkbox" name="topic_ids[]" value="<%= topic.id %>" 
-                <%= @the_paper.topics.include?(topic) ? "checked" : "" %>>
-          <%= topic.topic %><br>
-        <% end %>
+      <div class="row mb-3">
+        <label for="topics_box" class="col-sm-2 col-form-label">Select Topics</label>
+        <div class="col-sm-10">
+          <% Topic.all.each do |topic| %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="topic_ids[]" 
+                value="<%= topic.id %>" id="topic_<%= topic.id %>" 
+                <%= "checked" if @the_paper.topics.include?(topic) %>>
+              <label class="form-check-label" for="topic_<%= topic.id %>">
+                <%= topic.topic %>
+              </label>
+            </div>
+          <% end %>
+        </div>
       </div>
 
       <div>
@@ -118,39 +131,47 @@
           Arxiv identifier
         </label>
 
-        <input type="text" id="arxiv_identifier_box" name="query_arxiv_identifier" value="<%= @the_paper.arxiv_identifier %>">
+        <input type="text" id="arxiv_identifier_box" name="query_arxiv_identifier" 
+          value="<%= @the_paper.arxiv_identifier %>">
       </div>
 
-      <div>
-        <label for="url_box">
-          Url
-        </label>
-
+      <div class="mb-3">
+        <label for="url_box" class="form-label">Url</label>
+        
         <% if @the_paper.url.present? %>
           <p>
             Current URL: <a href="<%= @the_paper.url %>" target="_blank"><%= @the_paper.url %></a>
           </p>
-          <p>Update the URL:</p>
+          <div class="d-flex align-items-center">
+            <p class="mb-0 me-2">Update the URL:</p>
+            <input type="text" id="url_box" name="query_url" 
+              value="<%= @the_paper.url %>" class="form-control w-50">
+          </div>
+        <% else %>
+          <input type="text" id="url_box" name="query_url" value="<%= @the_paper.url %>" class="form-control">
         <% end %>
-
-        <input type="text" id="url_box" name="query_url" value="<%= @the_paper.url %>">
       </div>
 
       <div>
         <label for="text_box">
-          Text
         </label>
 
         <% if @the_paper.text.present? %>
           <p>
             Current Paper File: <a href="<%= @the_paper.text.url %>" target="_blank">Download</a>
           </p>
-          <p>If you want to replace the existing text, upload a new file:</p>
+          <p>If you want to replace the existing paper, upload a new file:</p>
         <% else %>
-          <p>No paper file uploaded. Please upload one:</p>
+          <p>No paper file was uploaded. Please upload one:</p>
         <% end %>
 
         <input type="file" id="text_box" name="query_text" class="form-control">
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="hidden" name="query_bookmark" value="0">
+        <input type="checkbox" class="form-check-input" id="bookmark_box" name="query_bookmark" value="1">
+        <label for="bookmark_box" class="form-check-label">Bookmark this paper</label>
       </div>
       
       <hr>

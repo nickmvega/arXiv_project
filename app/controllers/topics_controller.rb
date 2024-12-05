@@ -7,11 +7,6 @@ class TopicsController < ApplicationController
     the_id = params.fetch("path_id")
     @the_topic = Topic.find_by(id: the_id)
   
-    if @the_topic.nil?
-      redirect_to("/topics", { alert: "Topic not found." })
-      return
-    end
-  
     @associated_papers = @the_topic.papers
   end
 

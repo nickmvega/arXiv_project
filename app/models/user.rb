@@ -22,4 +22,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many  :papers, class_name: "Paper", foreign_key: "user_id", dependent: :destroy
+  has_many  :bookmarks, class_name: "Bookmark", foreign_key: "user_id", dependent: :destroy
 end
