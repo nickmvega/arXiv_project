@@ -1,10 +1,12 @@
 class PapersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @list_of_papers = 
     if params.fetch(:topic_ids, []).any?
-      Paper.joins(:topics).where(topics: { id: params.fetch(:topic_ids) }).distinct
+      current_user.papers.joins(:topics).where(topics: { id: params.fetch(:topic_ids) }).distinct
     else
-      Paper.all
+      current_user.papers
     end.order(created_at: :desc)
 
     render({ :template => "papers/index" })
@@ -13,7 +15,7 @@ class PapersController < ApplicationController
   def show
     the_id = params.fetch("path_id")
 
-    matching_papers = Paper.where({ :id => the_id })
+    matching_papers = current_user.papers.where({ :id => the_id })
 
     @the_paper = matching_papers.at(0)
 
@@ -51,7 +53,7 @@ class PapersController < ApplicationController
 
   def update
     the_id = params.fetch("path_id")
-    the_paper = Paper.where({ :id => the_id }).at(0)
+    the_paper = current_user.papers.where({ :id => the_id }).at(0)
 
     the_paper.title = params.fetch("query_title")
     the_paper.author = params.fetch("query_author")
@@ -82,7 +84,7 @@ class PapersController < ApplicationController
 
   def destroy
     the_id = params.fetch("path_id")
-    the_paper = Paper.where({ :id => the_id }).at(0)
+    the_paper = current_user.papers.where({ :id => the_id }).at(0)
 
     the_paper.destroy
 

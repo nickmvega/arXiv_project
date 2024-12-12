@@ -1,13 +1,15 @@
 class TopicsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @list_of_topics = Topic.includes(:papers).order(created_at: :desc)
+    @list_of_topics = current_user.topics.includes(:papers).order(created_at: :desc)
   end
 
   def show
     the_id = params.fetch("path_id")
-    @the_topic = Topic.find_by(id: the_id)
+    @the_topic = current_user.topics.find_by(id: the_id)
   
-    @associated_papers = @the_topic.papers
+    @associated_papers = @the_topic.papers.where(user: current_user)
   end
 
   def create
