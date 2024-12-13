@@ -113,16 +113,19 @@
       <div class="row mb-3">
         <label for="topics_box" class="col-sm-2 col-form-label">Select Topics</label>
         <div class="col-sm-10">
-          <% Topic.all.each do |topic| %>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" name="topic_ids[]" 
-                value="<%= topic.id %>" id="topic_<%= topic.id %>" 
-                <%= "checked" if @the_paper.topics.include?(topic) %>>
-              <label class="form-check-label" for="topic_<%= topic.id %>">
-                <%= topic.topic %>
-              </label>
-            </div>
-          <% end %>
+          <% if current_user.topics.any? %>
+            <% current_user.topics.each do |topic| %>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="topic_ids[]" 
+                  value="<%= topic.id %>" id="topic_<%= topic.id %>" 
+                  <%= "checked" if @the_paper.topics.include?(topic) %>>
+                <label class="form-check-label" for="topic_<%= topic.id %>">
+                  <%= topic.topic %>
+                </label>
+              </div>
+            <% end %>
+          <% else %>
+            <p>You haven't created any topics yet. <a href="/topics">Create your first topic</a></p>
         </div>
       </div>
 

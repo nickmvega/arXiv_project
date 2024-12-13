@@ -45,16 +45,23 @@
     </div>
 
     <div class="row mb-3">
-      <label for="topics_box" class="col-sm-2 col-form-label">Select Topics</label>
+      <label for="topics_box" class="col-sm-2 col-form-label">
+          Select Topics 
+      <a href="/topics" class="ms-2 text-decoration-none">(Add Topic)</a>
+      </label>
       <div class="col-sm-10">
-        <% Topic.all.each do |topic| %>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="topic_ids[]" 
-              value=<%= topic.id %>" id="topic_<%= topic.id %>">
-            <label class="form-check-label" for="topic_<%= topic.id %>">
-              <%= topic.topic %>
-            </label>
-          </div>
+        <% if current_user.topics.any? %>
+          <% current_user.topics.each do |topic| %>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="topic_ids[]" 
+                value=<%= topic.id %>" id="topic_<%= topic.id %>">
+              <label class="form-check-label" for="topic_<%= topic.id %>">
+                <%= topic.topic %>
+              </label>
+            </div>
+          <% end %>
+        <% else %>
+          <p>You haven't created any topics yet. <a href="/topics">Create your first topic</a></p>
         <% end %>
       </div>
     </div>
@@ -72,25 +79,6 @@
 </div>
 </form>
 
-<div class="card shadow mb-4">
-  <h3 class="custom-header">
-    Don't see a relevant topic? Quickly add it here or <a href="/topics">go to Topics</a>
-  </h3>
-  <form action="/insert_topic" method="post">
-    <div>
-      <label for="topic_box">New Topic</label>
-      <input type="text" id="topic_box" name="query_topic">
-    </div>
-    <div class="row mb-3">
-    <div class="col-sm-10">
-      <button type="submit" class="btn btn-primary">Create Topic</button>
-    </div>
-  </div>
-  </form>
-</div>
-</div>
-
-
 <hr>
 
 <div class="card shadow mb-4">
@@ -99,7 +87,7 @@
     <div class="row mb-3">
       <label for="filter_topics" class="col-sm-2 col-form-label">Filter Topics</label>
       <div class="col-sm-10">
-        <% Topic.all.each do |topic| %>
+        <% current_user.topics.each do |topic| %>
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="topic_ids[]" 
               value="<%= topic.id %>" id="filter_topic_<%= topic.id %>"
