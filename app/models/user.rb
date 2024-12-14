@@ -24,5 +24,6 @@ class User < ApplicationRecord
   has_many  :papers, class_name: "Paper", foreign_key: "user_id", dependent: :destroy
   has_many  :bookmarks, class_name: "Bookmark", foreign_key: "user_id", dependent: :destroy
   has_many :papertopics, through: :papers
-  has_many :topics, -> { distinct }, through: :papertopics
+  has_many :topics, class_name: "Topic", foreign_key: "user_id", dependent: :destroy 
+
 end

@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @list_of_topics = current_user.topics.includes(:papers).order(created_at: :desc)
+    @list_of_topics = current_user.topics.order(created_at: :desc)
   end
 
   def show
@@ -15,6 +15,7 @@ class TopicsController < ApplicationController
   def create
     the_topic = Topic.new
     the_topic.topic = params.fetch("query_topic")
+    the_topic.user = current_user
 
     if the_topic.valid?
       the_topic.save
@@ -26,7 +27,7 @@ class TopicsController < ApplicationController
 
   def update
     the_id = params.fetch("path_id")
-    the_topic = Topic.where({ :id => the_id }).at(0)
+    the_topic = current_user.topics.where({ :id => the_id }).at(0)
 
     the_topic.topic = params.fetch("query_topic")
 
@@ -40,7 +41,7 @@ class TopicsController < ApplicationController
 
   def destroy
     the_id = params.fetch("path_id")
-    the_topic = Topic.where({ :id => the_id }).at(0)
+    the_topic = current_user.topics.where({ :id => the_id }).at(0)
 
     the_topic.destroy
 
