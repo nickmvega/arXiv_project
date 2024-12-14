@@ -8,11 +8,7 @@ class BookmarksController < ApplicationController
 
   def show
     @the_bookmark = current_user.bookmarks.find_by(id: params.fetch(:path_id))
-    if @the_bookmark.nil?
-      redirect_to "/bookmarks", alert: "Bookmark not found."
-    else
-      render({ template: "bookmarks/show" })
-    end
+    render({ template: "bookmarks/show" })
   end
 
   def create
